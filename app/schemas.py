@@ -1,8 +1,34 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Literal
 
 
 class ChurnInput(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "gender": "Female",
+                "SeniorCitizen": 0,
+                "Partner": "Yes",
+                "Dependents": "No",
+                "tenure": 12,
+                "PhoneService": "Yes",
+                "MultipleLines": "No",
+                "InternetService": "Fiber optic",
+                "OnlineSecurity": "No",
+                "OnlineBackup": "Yes",
+                "DeviceProtection": "No",
+                "TechSupport": "No",
+                "StreamingTV": "Yes",
+                "StreamingMovies": "No",
+                "Contract": "Month-to-month",
+                "PaperlessBilling": "Yes",
+                "PaymentMethod": "Electronic check",
+                "MonthlyCharges": 70.35,
+                "TotalCharges": 845.5,
+            }
+        }
+    )
+
     gender: Literal["Male", "Female"]
     SeniorCitizen: Literal[0, 1]
     Partner: Literal["Yes", "No"]
@@ -25,31 +51,6 @@ class ChurnInput(BaseModel):
     ]
     MonthlyCharges: float = Field(..., ge=0)
     TotalCharges: float = Field(..., ge=0)
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "gender": "Female",
-                "SeniorCitizen": 0,
-                "Partner": "Yes",
-                "Dependents": "No",
-                "tenure": 12,
-                "PhoneService": "Yes",
-                "MultipleLines": "No",
-                "InternetService": "Fiber optic",
-                "OnlineSecurity": "No",
-                "OnlineBackup": "Yes",
-                "DeviceProtection": "No",
-                "TechSupport": "No",
-                "StreamingTV": "Yes",
-                "StreamingMovies": "No",
-                "Contract": "Month-to-month",
-                "PaperlessBilling": "Yes",
-                "PaymentMethod": "Electronic check",
-                "MonthlyCharges": 70.5,
-                "TotalCharges": 845.5,
-            }
-        }
 
 
 class ChurnOutput(BaseModel):
